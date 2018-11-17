@@ -12,6 +12,6 @@ MAE is lower than 1 and result is beyond satisfactory
 
 ![First Cut](res/c1.svg)
 
-![First Cut](res/c4.svg)
+![First Cut](res/c2.svg)
 
-![First Cut](res/c6.svg)
+![First Cut](res/c3.svg)

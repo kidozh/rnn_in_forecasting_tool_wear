@@ -80,12 +80,14 @@ for DEPTH in [5,10]:
                 third_list.append(predicted[2])
 
 
-            plt.plot(knife_data,label="predicted")
+            plt.plot(knife_data,label="REAL")
             plt.plot(first_list,label="1st")
             plt.plot(second_list, label="2nd")
             plt.plot(third_list, label="3rd")
             plt.legend()
+            plt.savefig("../res/c%s.svg"%(knife_number+1))
             plt.show()
+
 
 
 
