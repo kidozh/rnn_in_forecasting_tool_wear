@@ -29,3 +29,7 @@ def build_simple_RNN(input_shape,output_length,output_dim):
 
     model.compile(loss='logcosh', optimizer='adam', metrics=["mae", "mse"])
     return model
+
+if __name__ == "__main__":
+    from keras.utils import plot_model
+    plot_model(build_simple_RNN((2,1),5,1),to_file="RNN.pdf")

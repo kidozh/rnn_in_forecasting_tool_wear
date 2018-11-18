@@ -4,6 +4,12 @@ This program is used to forecast upcoming tool wear by LSTM
 
 The speed is ultra-fast and final score is beyond satisfactory.
 
+# Demonstration of my work
+
+You can click [[HERE]](demonstration.pdf) to know our idea, work and achievement related to this repo.
+
+This slide is localized in Chinese.
+
 # Result
 
 `1st`,`2nd` and `3rd` is corresponding to forecasting three timestep 

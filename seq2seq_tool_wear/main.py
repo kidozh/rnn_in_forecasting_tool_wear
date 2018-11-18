@@ -7,10 +7,10 @@ import matplotlib.pyplot as plt
 
 # ---- CONF ------
 LOG_DIR = "MAX_KERAS_ROI_LOG/"
-PREDICT = True
+PREDICT = False
 
 # ---- GEN Data ----
-data = RNNSeriesDataSet(2,5)
+data = RNNSeriesDataSet(10,20)
 x,y = data.get_rnn_data()
 
 # ---- shuffle -----
@@ -28,13 +28,13 @@ print("Size :",train_x.shape,train_y.shape)
 for DEPTH in [5]:
 
     HIDDEN_DIM = 128
-    TRAIN_NAME = "Simple_2_5_Separate_RNN_Depth_%s_hidden_dim_%s" % (DEPTH,HIDDEN_DIM)
+    TRAIN_NAME = "Simple_10_20_Separate_RNN_Depth_%s_hidden_dim_%s" % (DEPTH,HIDDEN_DIM)
     MODEL_NAME = "%s.kerasmodel" % (TRAIN_NAME)
     MODEL_WEIGHT_NAME = "%s.kerasweight" % (TRAIN_NAME)
     MODEL_CHECK_PT = "%s.kerascheckpts" % (TRAIN_NAME)
 
     # model = build_model(1, 2, HIDDEN_DIM, 3, 1, DEPTH)
-    model = build_simple_RNN((2,1),5,1)
+    model = build_simple_RNN((10,1),20,1)
     print(model.summary())
     print("Model has been built.")
 
