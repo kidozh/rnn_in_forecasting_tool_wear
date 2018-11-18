@@ -24,6 +24,12 @@ which named as
 + cut_2.mp4
 + cut_3.mp4
 
+## Watch them on Youtube?
+
++ cut_1 : [https://youtu.be/arKw_D7j5pc](https://youtu.be/arKw_D7j5pc)
++ cut_2 : [https://youtu.be/n-Pyet1UJEg](https://youtu.be/n-Pyet1UJEg)
++ cut_3 : [https://youtu.be/CANADaKSgac](https://youtu.be/CANADaKSgac)
+
 Anyway, please feel free to ask me if you need further help
 
 # LICENSE
