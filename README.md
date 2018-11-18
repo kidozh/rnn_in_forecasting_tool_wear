@@ -12,4 +12,20 @@ MAE is lower than 1 and result is beyond satisfactory
 
 ![First Cut](res/c2.svg)
 
+![First Cut](res/c2.svg)
+
 ![First Cut](res/c3.svg)
+
+In addition, we have also test how to make RNN for long-term tool wear forecasting. If you feel interest, you can follow the video in `seq2seq_tool_wear`
+
+which named as 
+
++ cut_1.mp4
++ cut_2.mp4
++ cut_3.mp4
+
+Anyway, please feel free to ask me if you need further help
+
+# LICENSE
+
+MIT LICENCE
