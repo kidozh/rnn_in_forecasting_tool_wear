@@ -10,8 +10,6 @@ The speed is ultra-fast and final score is beyond satisfactory.
 
 MAE is lower than 1 and result is beyond satisfactory
 
-![First Cut](res/c1.svg)
-
 ![First Cut](res/c2.svg)
 
 ![First Cut](res/c3.svg)

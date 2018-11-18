@@ -83,8 +83,27 @@ class RNNSeriesDataSet(object):
         dat_x,dat_y =  np.array(x),np.array(y)
         return dat_x.reshape((dat_x.shape[0],dat_x.shape[1],1)),dat_y.reshape((dat_y.shape[0],dat_y.shape[1],1))
 
+    def get_separate_rnn_data(self):
+        x, y = [], []
+        test_x,test_y = [],[]
+        for i in range(3):
+            ix, iy = self.get_individual_tool_wear_batches(self.max_tool_wear_data[i * 315:(i + 1) * 315])
+            if i == 2:
+                test_x.extend(ix)
+                test_y.extend(iy)
+            else:
+                x.extend(ix)
+                y.extend(iy)
+                # print(len(ix))
+        dat_x, dat_y = np.array(x), np.array(y)
+        test_x,test_y = np.array(test_x),np.array(test_y)
+        return dat_x.reshape((dat_x.shape[0], dat_x.shape[1], 1)),\
+               dat_y.reshape((dat_y.shape[0], dat_y.shape[1], 1)),\
+               test_x.reshape((test_x.shape[0],test_x.shape[1],1)),\
+               test_y.reshape((test_y.shape[0],test_y.shape[1],1))
+
 
 if __name__ == "__main__":
-    a = RNNSeriesDataSet(2,3)
+    a = RNNSeriesDataSet(2,5)
     dat_x,dat_y = a.get_rnn_data()
     print(dat_x.shape,dat_y.shape)

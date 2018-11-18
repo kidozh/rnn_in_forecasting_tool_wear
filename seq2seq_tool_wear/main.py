@@ -10,7 +10,7 @@ LOG_DIR = "MAX_KERAS_ROI_LOG/"
 PREDICT = True
 
 # ---- GEN Data ----
-data = RNNSeriesDataSet(2,3)
+data = RNNSeriesDataSet(2,5)
 x,y = data.get_rnn_data()
 
 # ---- shuffle -----
@@ -23,16 +23,18 @@ random.shuffle(index)
 train_y = y[index]
 train_x = x[index]
 
-for DEPTH in [5,10]:
+print("Size :",train_x.shape,train_y.shape)
+
+for DEPTH in [5]:
 
     HIDDEN_DIM = 128
-    TRAIN_NAME = "Simple_RNN_Depth_%s_hidden_dim_%s" % (DEPTH,HIDDEN_DIM)
+    TRAIN_NAME = "Simple_2_5_Separate_RNN_Depth_%s_hidden_dim_%s" % (DEPTH,HIDDEN_DIM)
     MODEL_NAME = "%s.kerasmodel" % (TRAIN_NAME)
     MODEL_WEIGHT_NAME = "%s.kerasweight" % (TRAIN_NAME)
     MODEL_CHECK_PT = "%s.kerascheckpts" % (TRAIN_NAME)
 
     # model = build_model(1, 2, HIDDEN_DIM, 3, 1, DEPTH)
-    model = build_simple_RNN((2,1),3,1)
+    model = build_simple_RNN((2,1),5,1)
     print(model.summary())
     print("Model has been built.")
 
@@ -50,7 +52,7 @@ for DEPTH in [5,10]:
             print("No checkpoints found !")
         print("Start to train the model")
 
-        model.fit(train_x,train_y,batch_size=16,epochs=1000,validation_split=0.2,callbacks=[tb_cb,ckp_cb])
+        model.fit(train_x,train_y,batch_size=16,epochs=5000,validation_split=0.2,callbacks=[tb_cb,ckp_cb])
 
         model.model.save(MODEL_NAME)
         model.save_weights(MODEL_WEIGHT_NAME)
@@ -72,7 +74,7 @@ for DEPTH in [5,10]:
             second_list = [None,None,None]
             third_list = [None,None,None,None]
             fig = plt.figure()
-            for every_start in range(knife_data.shape[0]-3):
+            for every_start in range(knife_data.shape[0]-5):
                 predicted = model.predict(knife_data[every_start:every_start+2].reshape(1,2,1)).reshape(3)
 
                 first_list.append(predicted[0])
