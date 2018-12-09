@@ -53,7 +53,7 @@
             <p class="button-group">
                 <a class="btn btn-normal">READ PAPER (UNDER PUBLISH)</a>
 
-                <a class="btn btn-read" href="./static/source/RNN_Beamer.pdf">READ SLIDE</a>
+                <a class="btn btn-read" href="./static/source/RNN_Beamer.pdf" data-toggle="tooltip" data-placement="top" title="Simplified Chinese Only">READ SLIDE</a>
 
 
                 <a class="btn btn-github" href="https://github.com/kidozh/rnn_in_prediction_tool_wear"><span class="fa fa-github"></span> GITHUB</a> </p>
@@ -231,5 +231,10 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
 </body>
 </html>
