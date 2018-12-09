@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="./static/css/style.css">
+    <title>Tool wear forecasting by Recurrent Neural Network and its extension</title>
+</head>
+<body>
+
+<!-- navbar -->
+<nav class="navbar navbar-expand-lg navbar-light navbar-clear">
+    <a class="navbar-brand" href="#">kidozh</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarToggler">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item ">
+                <a class="nav-link" href="https://kidozh.com/keras_detect_tool_wear/">Single machining tool wear <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="https://kidozh.com/transfer_learning_NASA/">Multiple machining Tool wear</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="https://kidozh.com/keras_detect_tool_wear/visualization.html">Visualization</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="">Tool wear forecast</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav navbar-right">
+            <li class="nav-item">
+                <a class="nav-link" href="#">简中</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row project-bg">
+        <div class="col-md-2 offset-md-2">
+            <img class="img-fluid" src="./static/images/logo.svg" alt="LOGO">
+        </div>
+        <div class="col-md-5 offset-md-1">
+            <h1 class="project-title">The First <br/>Tool wear forecasting</h1>
+            <p class="button-group">
+                <a class="btn btn-normal">READ PAPER (UNDER PUBLISH)</a>
+
+                <a class="btn btn-read" href="./static/source/RNN_Beamer.pdf">READ SLIDE</a>
+
+
+                <a class="btn btn-github" href="https://github.com/kidozh/rnn_in_prediction_tool_wear"><span class="fa fa-github"></span> GITHUB</a> </p>
+        </div>
+
+    </div>
+    <div class="row">
+        <!-- about-->
+        <div class="col-md-12 project-author">
+            <h4 class="text-center">Developer</h4>
+            <h2 class="author text-center">kidozh</h2>
+            <p class="lead text-center"><a href="http://jidian.nwpu.edu.cn/info/1229/5124.htm">Key Lab of Contemporary Design and Integrated Manufacturing Technology</a><br> <a href="http://en.nwpu.edu.cn/">Northwestern Polytechnical University</a></p>
+        </div>
+    </div>
+    <div class="row project-advantage">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h3 class="text-center">Accurate</h3>
+                    <p class="text-center">
+                        Like model we developed before, high-accuracy is still
+                        our top attention. By remember-forget gate mechanism, methods
+                        replacing Markov chain get great performance in both train and
+                        test dataset
+
+                    </p>
+                </div>
+                <div class="col-md-4">
+                    <h3 class="text-center">Universal</h3>
+                    <p class="text-center">
+                        The most thrilling point of this model is its powerful inference
+                        and generality. There is little performance difference in train and test data,
+                        which indicates the model could learn tool wear degradation well and infer accurately
+                        new data without over-fitting problem.
+                    </p>
+                </div>
+                <div class="col-md-4">
+                    <h3 class="text-center">Scalable</h3>
+                    <p class="text-center">
+                        By working with CNN monitoring system, it's easy for forecasting system to correct its
+                        output realtime. Also it can promote fiercely both monitoring and forecasting performance introducing
+                        differential constraint. This closed loop system including monitoring and forecasting shows great practices in
+                        real manufacturing.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row project-section model-tips">
+        <div class="col-md-4 offset-md-2">
+            <img class="img-fluid" src="./static/images/model.svg" alt="model">
+        </div>
+        <div class="col-md-5">
+            <h2>We train a LSTM-unit recurrent neural network to forecast upcoming tool wear by history</h2>
+            <p>The network takes as input a time-series of historical tool wear, and outputs a time-series of
+            future tool wear. The input and output time could be adjusted according to forecasting task(emergency ,short
+                time or long time). The trainable parameters in this recurrent neural network is fewer and the model
+                can train or run on both CPU-only and GPU-accelerate computing environment. It enables widespread usage in
+                embedded system which is not good at computation.
+            </p>
+            <p>To cut computation cost of this fragile model, very ordinary methods are used. Since tool wear has fewer
+                dimension, not much tricks are taken into use.
+            </p>
+        </div>
+    </div>
+    <div class="row project-section">
+        <div class="col-md-5 offset-md-1">
+            <h2>Extend forecasting period by self-reference</h2>
+            <p>When model's output time is not less than input one, the predicted tool wear could be seen as historical data
+            to drive the same model for further tool wear. Since output is larger than input, the recursive process is unstoppable.
+                After that, native forecasting time will be extended.
+            </p>
+            <p>However, there is no free lunch in this algorithm. Like snake eat itself, all poison loss will be accumulated then model dies.
+            Eventually, result of self-reference won't longer be accurate. Even though, large-scale self-reference's result could indicates
+                tool wear tendency in future.
+            </p>
+            <p>By that, it's easy for model to prolong its forecasting time while model can hold its accuracy. However, from short-time
+                to long-time forecast model, ratio of self-reference could be so large that recursive algorithm's error is beyond imagination.
+                Building a native model according to machining requirement is still the best choice.
+
+            </p>
+        </div>
+        <div class="col-md-5">
+            <p class="text-center">
+                <img src="./static/images/short_recursive_prolong.svg" class="img-fluid"><br/>
+                short-time(takes 2 time, outputs 5 time) model's self-reference result
+            </p>
+        </div>
+    </div>
+    <div class="row project-section">
+        <div class="col-md-5 offset-md-1">
+            <p class="text-center">
+                <img src="./static/images/short_model_prediction.svg" class="img-fluid"><br/>
+                The five forecasting value by run
+            </p>
+        </div>
+        <div class="col-md-5">
+            <h2>High-accurate upcoming tool wear forecast</h2>
+            <p>The LSTM RNN model gets a outstanding performance at both train and dataset of PHM 2010 dataset.
+                The MSE is lower than 1. It's indicates that a perfect upcoming tool wear will be given if a accurate
+                tool wear is offered. According to latest technology, some optical method could help us get real-time
+                tool wear. Implementing that will enable model appliance in real machining condition.
+
+            </p>
+        </div>
+    </div>
+    <div class="row project-extension">
+        <div class="col-md-10 offset-md-1">
+            <h2>Real-time correction by CNN to enhance forecasting value</h2>
+            <p>As is said before, there aren't many machines equipped with optical system. Under that circumstances,
+            no in-process tool wear is given. So another approach is in demand.
+            </p>
+            <p>We have developed a high-accurate monitoring model before. It's time for that model to provide productivity now.
+            We could use signal to collect machining condition information and feed that model to predict current tool wear. After
+                receiving predicted tool wear, it's easy to implement this forecasting technology into widespread use. Optical
+                sensor is hard to equip while sensors needed in monitoring model is easy and cheap. So it offers a practical way to
+                apply in real product.
+            </p>
+            <p>But there is a error in monitoring tool wear, its error will be passed to forecasting model and cause a considerable
+                error in forecast result. The discrete point in forecast graph illustrates this error pass result. Luckily, since we can get multiple prediction before current condition, we can use historical
+                forecasting value to correct nowadays data. So we maintain a forecast list recording historical forecast, and use median
+                or average value as final decision. It could strongly impede discrete points and promote final forecast level.
+            </p>
+            <p>By considering stateful(RNN) and stateless(CNN) prediction, the final decision is rather accurate and follows the
+                degradation rule. Because no time label implicitly or explicitly given, in degradation given by CNN model,
+                tool wear decrease at some period. In order to avoid that stupid mistake, RNN could help promote final result with
+                introducing time dependency relation.
+            </p>
+
+        </div>
+        <div class="col-md-5 offset-md-1">
+            <p class="text-center">
+                <img src="./static/images/CNN_short_invovled.svg" class="img-fluid"><br/>
+                Using CNN without any correction, so many discrete point while most of others are accurate.
+            </p>
+        </div>
+        <div class="col-md-5">
+            <p class="text-center">
+                <img src="./static/images/CNN_invovled_comprehensive_correction_with_CNN.svg" class="img-fluid"><br/>
+                Using CNN with median or average correction, most forecast value is accurate and fluctuation is hindered.
+            </p>
+        </div>
+    </div>
+    <div class="row project-section conclusion">
+        <div class="col-md-8 offset-md-1">
+            <h3>Given that more than 600 sample from PHM data, high-accuracy forecast by native RNN model can indicate
+                tool wear in near future. By introducing CNN and real-time correction technology, both real-time and
+                accuracy could be guaranteed. Furthermore, we hope that this technology coped with further tool wear
+                enables more widespread use of deep learning in general places where tool wear is needed to promote
+                productivity.
+
+            </h3>
+        </div>
+    </div>
+    <div class="row contact-us">
+        <div class="col-md-10 offset-md-1">
+            <h2>If you have questions about our work, contact us at: kidozh@gmail.com</h2>
+        </div>
+
+    </div>
+    <div class="row footer">
+        <div class="col-md-12">
+            <h3 class="text-center">This project is licensed <a href="https://github.com/kidozh/keras_detect_tool_wear/blob/master/LICENSE">MIT</a>,
+                Docs <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>
+            </h3>
+        </div>
+    </div>
+
+</div>
+
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</body>
+</html>

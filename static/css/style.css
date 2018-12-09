@@ -1,0 +1,191 @@
+@import url('https://fonts.googleapis.com/css?family=Dosis|Muli:300,400|Open+Sans');
+
+body{
+    font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #2c3e50;
+    font-family: 'Muli', "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+    font-weight: 400;
+}
+
+p{
+    color: #7f8c8d;
+    font-family: 'Open Sans', "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+}
+
+.navbar-clear{
+    background: #fff;
+
+}
+
+.navbar-clear a{
+    color: #34495e;
+    transition: all .35s;
+}
+
+.navbar-clear a:hover,
+.navbar-clear li+.active{
+    border-bottom: 0.2rem solid #42b983;
+}
+
+.navbar-brand{
+    font-family: 'Dosis','Open Sans', "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif !important;
+}
+
+.project-bg{
+    padding: 6rem 2rem 6rem 2rem;
+}
+
+.project-bg h1{
+    font-weight: 300;
+}
+
+.project-bg h1,
+.project-bg h2,
+.project-bg h3,
+.project-bg h4,
+.project-bg h5,
+.project-bg h6{
+    color: #2c3e50;
+}
+
+.project-bg .author{
+    font-family: 'Dosis', 'Open Sans', "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+    margin: 1rem 0;
+}
+
+.project-bg a{
+    font-size: 1.1rem;
+    color:#fff;
+    font-weight: 600;
+    text-align: center;
+}
+
+.project-bg .button-group{
+    margin: 0.5rem 0 1rem 0;
+}
+
+.project-bg .btn{
+    padding: 0.75em 2em;
+    border-radius: 2em;
+    display: inline-block;
+    color: #fff;
+    background: #4fc08d;
+    transition: all .35s ease;
+    box-sizing: border-box;
+    border: 0.1rem solid #4fc08d;
+    margin-top: 0.5rem;
+    align-content: center;
+    margin-right: 0.5rem;
+}
+
+.project-bg .btn-read{
+    background: #4fc08d;
+    transition: all 0.15s ease;
+    box-sizing: border-box;
+    border: 0.1rem solid #4fc08d;
+    color: #ffffff !important;
+}
+
+.project-bg .btn-normal{
+    background: #fff;
+    color: #42b983!important;
+
+}
+
+.project-bg .btn-github{
+    background-color: #f6f6f6;
+    color: #7f8c8d!important;
+    border-color: #f6f6f6;
+}
+
+.project-title{
+    font-weight: 300;
+    font-size: 3.2rem;
+}
+
+.project-author{
+    padding: 0rem 0 1rem 0;
+}
+
+.project-author p,
+.project-author a{
+    color: #7f8c8d;
+}
+
+.project-advantage{
+    padding: 1rem 0 1rem 0;
+}
+
+.project-advantage h1,
+.project-advantage h3,
+.project-advantage h3,
+.project-advantage h4,
+.project-advantage h5,
+.project-advantage h6{
+    color:#42b983;
+    font-family: 'Muli', 'Open Sans', "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+}
+
+.project-advantage p{
+    color: #7f8c8d;
+}
+
+.project-section{
+    padding: 2rem 0 2rem 0;
+}
+
+.project-section h1,
+.project-section h2,
+.project-section h3,
+.project-section h4,
+.project-section h5,
+.project-section h6{
+    color: #2c3e50;
+}
+
+.project-section p{
+    color: #34495e;
+}
+
+.model-tips{
+    background: #f6f6f6;
+}
+
+.conclusion{
+    background: #f6f6f6;
+}
+
+.conclusion h1,
+.conclusion h2,
+.conclusion h3,
+.conclusion h4,
+.conclusion h5,
+.conclusion h6,
+.conclusion p{
+    color: #999;
+}
+
+.contact-us{
+    padding: 2rem 0 2rem 0;
+    background: #8BB174;
+}
+
+.contact-us *{
+    color: #FBECCD;
+}
+
+.footer{
+    padding: 2rem 1rem 2rem 1rem;
+    background: #f7f7f7;
+}
+
+.footer *{
+    color: #6c757d;
+}
+
+.footer a{
+    color : #495057;
+}
