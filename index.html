@@ -109,7 +109,7 @@
         <div class="col-md-5">
             <h2>We train a LSTM-unit recurrent neural network to forecast upcoming tool wear by history</h2>
             <p>The network takes as input a time-series of historical tool wear, and outputs a time-series of
-            future tool wear. The input and output time could be adjusted according to forecasting task(emergency ,short
+                future tool wear. The input and output time could be adjusted according to forecasting task(emergency ,short
                 time or long time). The trainable parameters in this recurrent neural network is fewer and the model
                 can train or run on both CPU-only and GPU-accelerate computing environment. It enables widespread usage in
                 embedded system which is not good at computation.
@@ -123,11 +123,11 @@
         <div class="col-md-5 offset-md-1">
             <h2>Extend forecasting period by self-reference</h2>
             <p>When model's output time is not less than input one, the predicted tool wear could be seen as historical data
-            to drive the same model for further tool wear. Since output is larger than input, the recursive process is unstoppable.
+                to drive the same model for further tool wear. Since output is larger than input, the recursive process is unstoppable.
                 After that, native forecasting time will be extended.
             </p>
             <p>However, there is no free lunch in this algorithm. Like snake eat itself, all poison loss will be accumulated then model dies.
-            Eventually, result of self-reference won't longer be accurate. Even though, large-scale self-reference's result could indicates
+                Eventually, result of self-reference won't longer be accurate. Even though, large-scale self-reference's result could indicates
                 tool wear tendency in future.
             </p>
             <p>By that, it's easy for model to prolong its forecasting time while model can hold its accuracy. However, from short-time
@@ -164,10 +164,10 @@
         <div class="col-md-10 offset-md-1">
             <h2>Real-time correction by CNN to enhance forecasting value</h2>
             <p>As is said before, there aren't many machines equipped with optical system. Under that circumstances,
-            no in-process tool wear is given. So another approach is in demand.
+                no in-process tool wear is given. So another approach is in demand.
             </p>
             <p>We have developed a high-accurate monitoring model before. It's time for that model to provide productivity now.
-            We could use signal to collect machining condition information and feed that model to predict current tool wear. After
+                We could use signal to collect machining condition information and feed that model to predict current tool wear. After
                 receiving predicted tool wear, it's easy to implement this forecasting technology into widespread use. Optical
                 sensor is hard to equip while sensors needed in monitoring model is easy and cheap. So it offers a practical way to
                 apply in real product.
@@ -224,6 +224,28 @@
 
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="strictModal" tabindex="-1" role="dialog" aria-labelledby="strictModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="strictModalLabel">似乎您来自于台湾？</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>我们更新了针对台湾地区用户的一些说明，您可以下述链接这里来查看相关说明</p>
+                <p><a href="./epidemic_prevention_notice.html">相关用户的说明</a> </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                <a href="./epidemic_prevention_notice.html"><button type="button" class="btn btn-primary">查看</button></a>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 <!-- Optional JavaScript -->
@@ -232,7 +254,16 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 <script>
+    function notices_user_comes_from_tw_province(){
+        let lang = navigator.language;
+        if (lang === "zh-TW" || lang === "zh-tw"){
+            console.log("Raise a modal to notice user from TW");
+            $('#strictModal').modal('show');
+        }
+    }
+
     $(function () {
+        notices_user_comes_from_tw_province();
         $('[data-toggle="tooltip"]').tooltip()
     })
 </script>
