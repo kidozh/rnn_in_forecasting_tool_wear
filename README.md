@@ -10,6 +10,8 @@ You can click [[HERE]](demonstration.pdf) to know our idea, work and achievement
 
 This slide is localized in Chinese.
 
+Also, [HERE](https://kidozh.com/projects/rnn_in_prediction_tool_wear/) is this project's homepage. You can find hints at our homepage.
+
 # Result
 
 `1st`,`2nd` and `3rd` is corresponding to forecasting three timestep 
