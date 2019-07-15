@@ -1,20 +1,20 @@
-import seq2seq
-from seq2seq.models import AttentionSeq2Seq
+# import seq2seq
+# from seq2seq.models import AttentionSeq2Seq
 from keras.models import Sequential
 from keras.layers import LSTM,CuDNNLSTM,Dense,RepeatVector
 
 
 
 
-def build_model(input_dim, input_length, hidden_dim,output_length,out_dim,depth):
-    model = AttentionSeq2Seq(input_dim=input_dim,
-                             input_length=input_length,
-                             hidden_dim=hidden_dim,
-                             output_length=output_length,
-                             output_dim=out_dim,
-                             depth=depth)
-    model.compile(loss='logcosh', optimizer='adam',metrics=["mae","mse"])
-    return model
+# def build_model(input_dim, input_length, hidden_dim,output_length,out_dim,depth):
+#     model = AttentionSeq2Seq(input_dim=input_dim,
+#                              input_length=input_length,
+#                              hidden_dim=hidden_dim,
+#                              output_length=output_length,
+#                              output_dim=out_dim,
+#                              depth=depth)
+#     model.compile(loss='logcosh', optimizer='adam',metrics=["mae","mse"])
+#     return model
 
 def build_simple_RNN(input_shape,output_length,output_dim):
 
@@ -32,4 +32,5 @@ def build_simple_RNN(input_shape,output_length,output_dim):
 
 if __name__ == "__main__":
     from keras.utils import plot_model
+    print(build_simple_RNN((2,1),5,1).summary())
     plot_model(build_simple_RNN((2,1),5,1),to_file="RNN.pdf")

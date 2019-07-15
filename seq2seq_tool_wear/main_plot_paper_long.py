@@ -40,13 +40,13 @@ print("Size :",train_x.shape,train_y.shape)
 for DEPTH in [5]:
 
     HIDDEN_DIM = 128
-    TRAIN_NAME = "Simple_2_5_Separate_RNN_Depth_%s_hidden_dim_%s" % (DEPTH,HIDDEN_DIM)
+    TRAIN_NAME = "Simple_10_20_Separate_RNN_Depth_%s_hidden_dim_%s" % (DEPTH,HIDDEN_DIM)
     MODEL_NAME = "%s.kerasmodel" % (TRAIN_NAME)
     MODEL_WEIGHT_NAME = "%s.kerasweight" % (TRAIN_NAME)
     MODEL_CHECK_PT = "%s.kerascheckpts" % (TRAIN_NAME)
 
     # model = build_model(1, 2, HIDDEN_DIM, 3, 1, DEPTH)
-    model = build_simple_RNN((2,1),5,1)
+    model = build_simple_RNN((10,1),20,1)
     print(model.summary())
     print("Model has been built.")
 
@@ -84,41 +84,46 @@ for DEPTH in [5]:
                 continue
             knife_data = tool_wear_data[knife_number*315:(knife_number+1)*315]
             print("Current Knife shape:",knife_data.shape)
-            first_list = [None,None,]
-            second_list = [None,None,None]
-            third_list = [None,None,None,None]
-            fourth_list = [None for _ in range(5)]
-            fifth_list = [None for _ in range(6)]
+            import matplotlib.pyplot as plt
+
+            # plt.rcParams['font.sans-serif'] = ['Hiragino Sans GB']  # 用来正常显示中文标签
+            # plt.rcParams['axes.unicode_minus']=False # 用来正常显示负号
             fig = plt.figure(0)
-            for every_start in range(knife_data.shape[0]-5):
-                predicted = model.predict(knife_data[every_start:every_start+2].reshape(1,2,1)).reshape(5)
 
-                first_list.append(predicted[0])
-                second_list.append(predicted[1])
-                third_list.append(predicted[2])
-                fourth_list.append(predicted[3])
-                fifth_list.append(predicted[4])
+            START_NUMBER = 10
 
 
-            plt.plot(knife_data,label="REAL")
-            plt.scatter([i for i in range(len(first_list))],first_list,label="1st forecast value",s=2,marker="x")
-            plt.scatter([i for i in range(len(second_list))],second_list, label="2nd forecast value",s=2,marker="o")
-            plt.scatter([i for i in range(len(third_list))],third_list, label="3rd forecast value",s=2,marker="v")
-            plt.scatter([i for i in range(len(fourth_list))],fourth_list, label="4th forecast value",s=2,marker=",")
-            plt.scatter([i for i in range(len(fifth_list))],fifth_list, label="5th forecast value",s=2,marker=".")
-            print("Pred ",len(first_list),len(second_list),len(third_list),len(fourth_list),len(fifth_list))
-            # calculate MSE
-            print(get_loss_value(knife_data,first_list))
-            print(get_loss_value(knife_data, second_list))
-            print(get_loss_value(knife_data, third_list))
-            print(get_loss_value(knife_data, fourth_list))
-            print(get_loss_value(knife_data, fifth_list))
+
+
+            every_start = START_NUMBER
+            predicted = model.predict(knife_data[every_start:every_start+10].reshape(1,10,1)).reshape(20)
+
+
+            plt.plot(knife_data,label="Tool wear degradation",c="#7f8c8d",linestyle="-.")
+            plt.plot([None]*(every_start+10)+predicted.tolist(),label="Forecast value",c="#e74c3c")
+            plt.plot([None]*every_start+knife_data[every_start:every_start+10].tolist(),label="Historical input",c="#1abc9c",linestyle="--")
+            # print(len([None]*(every_start+2)+predicted.tolist()))
+            plt.scatter([i for i in range(315)], knife_data, s=50, marker=".", c="#7f8c8d")
+            plt.scatter([i for i in range(every_start,every_start+10)],knife_data[every_start:every_start+10],s=80,marker=".",c="#1abc9c")
+            plt.scatter([i for i in range(every_start+10,every_start+30)],predicted.tolist(),s=80,marker=".",c="#e74c3c")
+
+            # annotate
+            plt.annotate("Forecast next tool wear after this point",
+                         xy=(every_start+9,knife_data[every_start+9]),
+                         xycoords='data', xytext=(+0, -30),
+                        textcoords='offset points',
+                         arrowprops=dict(arrowstyle='->', connectionstyle="arc3,rad=.2"))
+
+
 
             plt.xlabel("Run")
             plt.ylabel("Tool wear ($\mu m$)")
 
+            plt.xlim(every_start-1,every_start+30+1)
+            plt.ylim(knife_data[every_start:every_start+30].min()-1,knife_data[every_start:every_start+30].max()+2)
+
             plt.legend()
-            plt.savefig("../res/short_c%s.pdf"%(knife_number+1))
+            plt.savefig("../res/paper_long_c%s_en.pdf"%(knife_number+1))
             plt.show()
             plt.close(0)
 

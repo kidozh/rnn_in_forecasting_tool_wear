@@ -8,48 +8,54 @@ from seq2seq_tool_wear.model import *
 
 model = None
 
+KNIFE_NUMBER = 3
+
 # ---- PREPARATION ----
-def plot_curve(start_point,model,predict_line_obj,direct_knife=2):
+def plot_curve(start_point,model,predict_line_obj,direct_knife=KNIFE_NUMBER,input_length=2,output_length=5):
     # LOOP TO PREDICT THE WHOLE CURVE
     print("Draw for",start_point)
+
     for knife_number in range(direct_knife-1,direct_knife):
         knife_data = tool_wear_data[knife_number * 315:(knife_number + 1) * 315]
         # print("Current Knife shape:", knife_data.shape)
 
 
         START_POINT = start_point
-        next = model.predict(knife_data[START_POINT:START_POINT + 10].reshape(1, 10, 1)).reshape(20)
+        next = model.predict(knife_data[START_POINT:START_POINT + input_length].reshape(1, input_length, 1)).reshape(output_length)
         # life book
         life_total_data = [None for index in range(800)]
         cnt_total_data = [0 for index in range(800)]
 
-        life_total_data[START_POINT:START_POINT + 10] = knife_data[START_POINT:START_POINT + 10]
-        for _ in range(10):
+        life_total_data[START_POINT:START_POINT + input_length] = knife_data[START_POINT:START_POINT + input_length]
+        for _ in range(input_length):
             cnt_total_data[START_POINT+_] += 1
         previous = next
 
         for every_start in range(knife_data.shape[0]):
             # predicted = model.predict(knife_data[every_start:every_start+2].reshape(1,2,1)).reshape(5)
-            previous = np.array(life_total_data[every_start + START_POINT:every_start + START_POINT + 10])
+            previous = np.array(life_total_data[every_start + START_POINT:every_start + START_POINT + input_length])
             # print(previous)
-            next = model.predict(previous.reshape(1, 10, 1)).reshape(20)
-            for next_cur in range(20):
-                if life_total_data[every_start + START_POINT + 10 + next_cur] == None:
-                    # print("DIRECTLY GIVEN")
-                    life_total_data[every_start + START_POINT + next_cur + 10] = next[next_cur]
-                else:
-                    # print(life_total_data[every_start + START_POINT + next_cur + 2],
-                    #       cnt_total_data[every_start + START_POINT + 2 + next_cur])
-                    life_total_data[every_start + START_POINT + next_cur + 10] = \
-                        (next[next_cur] + life_total_data[every_start + START_POINT + next_cur + 10] * cnt_total_data[
-                            every_start + START_POINT + 10 + next_cur]) \
-                        / (cnt_total_data[every_start + START_POINT + 10 + next_cur] + 1)
+            next = model.predict(previous.reshape(1, input_length, 1)).reshape(output_length)
+            for next_cur in range(output_length):
+                if life_total_data[every_start + START_POINT + input_length + next_cur] == None:
 
-                cnt_total_data[every_start + START_POINT + 10 + next_cur] += 1
+                    life_total_data[every_start + START_POINT + next_cur + input_length] = next[next_cur]
+                else:
+
+                    life_total_data[every_start + START_POINT + next_cur + input_length] = \
+                        (next[next_cur] + life_total_data[every_start + START_POINT + next_cur + input_length] * cnt_total_data[
+                            every_start + START_POINT + input_length + next_cur]) \
+                        / (cnt_total_data[every_start + START_POINT + input_length + next_cur] + 1)
+
+                cnt_total_data[every_start + START_POINT + input_length + next_cur] += 1
 
         # plt.plot(knife_data, label="REAL")
+        for i in range(input_length):
+            life_total_data[START_POINT+i] = None
+        # life_total_data[START_POINT:START_POINT + input_length] = None
         predict_line_obj.set_data([index for index in range(800)],life_total_data)
-        plt.legend()
+        real_line.set_data([index for index in range(start_point)],knife_data[0:start_point])
+
         # plt.savefig("../res/PURE_c%s.svg" % (knife_number + 1))
         # plt.show()
 
@@ -78,13 +84,13 @@ print("Size :",train_x.shape,train_y.shape,test_x.shape,test_y.shape)
 for DEPTH in [5]:
 
     HIDDEN_DIM = 128
-    TRAIN_NAME = "Simple_10_20_Separate_RNN_Depth_%s_hidden_dim_%s" % (DEPTH,HIDDEN_DIM)
+    TRAIN_NAME = "Simple_2_5_Separate_RNN_Depth_%s_hidden_dim_%s" % (DEPTH,HIDDEN_DIM)
     MODEL_NAME = "%s.kerasmodel" % (TRAIN_NAME)
     MODEL_WEIGHT_NAME = "%s.kerasweight" % (TRAIN_NAME)
     MODEL_CHECK_PT = "%s.kerascheckpts" % (TRAIN_NAME)
 
     # model = build_model(1, 2, HIDDEN_DIM, 3, 1, DEPTH)
-    model = build_simple_RNN((10,1),20,1)
+    model = build_simple_RNN((2,1),5,1)
     print(model.summary())
     print("Model has been built.")
 
@@ -121,13 +127,16 @@ for DEPTH in [5]:
         import matplotlib.animation as animation
 
         fig, ax = plt.subplots()
-        line, = ax.plot(tool_wear_data[315*1:315*2],label="real")
-        predict_line_obj, = ax.plot(tool_wear_data[315:315*2],label="RNN_curve")
+
+        line, = ax.plot(tool_wear_data[315*(KNIFE_NUMBER-1):315*(KNIFE_NUMBER)],label="tool wear degradation",linewidth=1,linestyle='--',color="#95a5a6")
+        predict_line_obj, = ax.plot(tool_wear_data[315*(KNIFE_NUMBER-1):315*(KNIFE_NUMBER)],label="tool wear forecast",color="#e74c3c")
+
+        real_line, = ax.plot([], [], linewidth=2, label="realtime tool wear", color="#1abc9c")
 
         # plot_curve(model,15)
-
-        ani = animation.FuncAnimation(fig, plot_curve, frames=300, fargs=(model, predict_line_obj))
         plt.legend()
-        ani.save('LONG_TERM_cut_2.mp4', fps=30, extra_args=['-vcodec', 'libx264'])
-        # plt.show()
+        ani = animation.FuncAnimation(fig, plot_curve, frames=300, fargs=(model, predict_line_obj),interval=200//10)
+
+        # ani.save('short_Replay_TERM_cut_%s.mp4'%(KNIFE_NUMBER), fps=30, extra_args=['-vcodec', 'libx264'])
+        plt.show()
 
