@@ -2,6 +2,8 @@
 
 This program is used to forecast upcoming tool wear by LSTM
 
+See our paper [Sun H, Zhang J, Mo R, et al. In-process tool condition forecasting based on a deep learning method[J]. Robotics and Computer-Integrated Manufacturing, 2020, 64: 101924.](https://www.sciencedirect.com/science/article/pii/S0736584519303655)
+
 The speed is ultra-fast and final score is beyond satisfactory.
 
 # Demonstration of my work
